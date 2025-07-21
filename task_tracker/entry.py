@@ -5,8 +5,8 @@ import datetime
 
 def readjson(add: bool = False) -> list:
     try:
-        if os.path.exists('tasks.json'):
-            with open('tasks.json') as f:
+        if os.path.exists(os.path.expanduser("~")+'\\tasks.json'):
+            with open(os.path.expanduser("~")+'\\tasks.json') as f:
                 data = json.load(f)
                 if type(data) == list:
                     return data
@@ -17,11 +17,11 @@ def readjson(add: bool = False) -> list:
         else:
             raise Exception('json file error')
     except:
-        print("Tasks list dosent exist please use add to create new list or delete broken tasks.json file")
+        print("Tasks list dosent exist please use add to create new list or delete broken tasks.json file at: "+os.path.expanduser("~")+"\\task.json")
         exit()
         
 def savejson(data: list):
-    with open('tasks.json','w+') as f:
+    with open(os.path.expanduser("~")+'\\tasks.json','w+') as f:
         json.dump(data,f,indent="")
 
 def statuscheck(status: str) -> str:
@@ -88,11 +88,12 @@ def task_mark(id: int,status: str):
 
 def task_list(status: str):
     data = readjson()
-    try:
-        status=statuscheck(status)
-    except:
-        print('Failed to list a task check your input')
-        return
+    if status != None:
+        try:
+            status=statuscheck(status)
+        except:
+            print('Failed to list a task check your input')
+            return
     print('ID Description Status Create-date Update-date')
     for x in data:
         if status != None and status != x['status']:

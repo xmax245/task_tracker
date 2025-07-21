@@ -3,7 +3,7 @@ from distutils.core import setup
 
 setup(
     name="task-tracker",
-    version="1.0.0",
+    version="1.0.1",
     description="CLI task tracker used to track and manage tasks",
     author="Jakub Stankiewicz",
     author_email="jakubstankiewicz024@gmail.com",
