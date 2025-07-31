@@ -80,7 +80,7 @@ def task_update(id: int,task: str):
 def task_delete(id: int):
     data = readjson()
     try:
-        data.pop(findid(data,id))
+        data[findid(data,id)].clear()
         print('Task deleted successfully (ID: '+str(id)+')')
     except:
         print('Failed to delete a task check your input')
