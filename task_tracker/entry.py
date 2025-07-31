@@ -38,20 +38,31 @@ def statuscheck(status: str) -> str:
 def findid(data: list,id: int) -> int:
     y = 0
     for x in data:
-        if x['id'] == id:
+        if x == {}:
+            if add == True:
+                return y
+            else:
+                y +=1
+        elif add == False and x['id'] == id:
             return y
         else:
             y +=1
+    if add == True:
+        return None
     print('Wrong task ID')
     raise Exception('no id in list')
     
 def task_add(task: str):
     data = readjson(True)
     time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    id = len(data)+1    
+    id = findid(data,None,True)   
     try:
-        data.append({'id':id,'desc':task,'status':'todo','create':time,'updated':time})
-        print('Task added successfully (ID: '+str(id)+')')
+        if id != None:
+           data[id].update({'id':id+1,'desc':task,'status':'todo','create':time,'updated':time})
+           print('Task added in successfully (ID: '+str(id+1)+')')
+        else:
+            data.append({'id':len(data)+1,'desc':task,'status':'todo','create':time,'updated':time})
+            print('Task added successfully (ID: '+str(len(data))+')')
     except:
         print('Failed to add a task check your input')
     savejson(data)
