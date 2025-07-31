@@ -35,7 +35,7 @@ def statuscheck(status: str) -> str:
         raise Exception('Error : incorrect status')
     return status  
     
-def findid(data: list,id: int) -> int:
+def findid(data: list,id: int,add: bool = False) -> int:
     y = 0
     for x in data:
         if x == {}:
